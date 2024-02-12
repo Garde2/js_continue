@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- В html создать элемент checkbox и текст рядом с ним “Согласен с условиями”
+    Добавить кнопку отправить
+    При клике на кнопку отправить нужно проверять выбран ли активным элемент checkbox
+    Если элемент не выбран, добавить текст под чекбоксом “Необходимо согласиться с условиями” -->
+
+    <form id="myForm">
+      <input type="checkbox" id="agree" name="agree" />
+      <label for="agree">Согласен с условиями</label><br />
+      <span id="error-message" class="error-message"></span><br />
+      <button type="submit">Отправить</button>
+    </form>
+
+    <br />
+    <br />
+    <br />
+
+    <form action="#" class="form2">
+      <input type="radio" name="tea" id="tea" />
+      <label for="tea">Чай</label>
+      <input type="radio" name="cofee" id="coffee" />
+      <label for="coffee">Кофе</label>
+      <div class="mesage"></div>
+      <button type="submit" id="submit">Отправить</button>
+    </form>
+
+    <br />
+    <br />
+    <br />
+
+    <form action="#" class="form3">
+      <input type="password" class="password" />
+      <button class="button3">Отправить</button>
+      <p class="error3"></p>
+    </form>
+
+    <br />
+    <br />
+    <br />
+
+    <div class="change-title" style="border: solid 1 px; padding: 10px">
+      <input
+        type="text"
+        class="change-title"
+        placeholder="Enter a new title"
+        style="outline: none"
+      />
+      <h1 class="title">заголовок</h1>
+    </div>
+
+    <script>
+      console.log(agree); // js сам ловит id-шники
+      myForm.addEventListener("submit", function (event) {
+        event.preventDefault();
+        const checkbox = document.getElementById("agree");
+        const errorMessage = document.getElementById("error-message");
+
+        errorMessage.textContent = checkbox.checked
+          ? ""
+          : "Необходимо согласиться с условиями";
+        // if (!checkbox.checked) {
+        // errorMessage.textContent = 'Необходимо согласиться с условиями';
+        // } else {
+        // errorMessage.textContent = '';
+        // // По идее, здесь должен быть код для отправки формы.
+        // }
+      });
+      // document.getElementById('myForm').addEventListener('submit', function(event) {
+      // event.preventDefault();
+      // const checkbox = document.getElementById('agree');
+      // const errorMessage = document.getElementById('error-message');
+
+      // if (!checkbox.checked) {
+      // errorMessage.textContent = 'Необходимо согласиться с условиями';
+      // } else {
+      // errorMessage.textContent = '';
+      // // По идее, здесь должен быть код для отправки формы.
+      // }
+      // });
+
+      //       В html создать 2 элемента радио кнопки (input type=”radio”) и текст “Чай”, “Кофе” соответственно
+      // Кнопка отправить
+      // Если выбран чай, необходимо вывести сообщение “Чай закончился”
+      // Если выбран кофе, необходимо вывести сообщение “Кофе закончился”
+
+      const form = document.querySelector(".form2");
+      const btnTea = document.querySelector("#tea");
+      const btnCoffee = document.querySelector("#coffee");
+      const btnEl = document.querySelector("#submit");
+      const massege = document.querySelector(".message");
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        if (btnTea.checked) {
+          massege.textContent = `Чай закончился1`;
+        }
+        if (btnCoffee.checked) {
+          massege.textContent = `Кофе закончился`;
+        }
+      });
+
+      //         Создать поле ввода (пароль)
+      // Кнопка отправить
+      // Если пользователь вводит текст “пароль” то поле ввода должно быть подсвечено зеленым цветом
+      // Если пароль неверный, у поля ввода появляется красная обводка и текст “пароль неверный”
+
+      const form3El = document.querySelector("form3");
+      const passwordEl = document.querySelector("password");
+      const error3El = document.querySelector("error3");
+      const password = "пароль";
+
+      form3El.addEventListener("submit", (e) => {
+        e.preventDefault();
+        if (passwordEl.value === password) {
+          passwordEl.style.borderColor = "green";
+          error3El.textContent = "Пароль верен!";
+        } else if (passwordEl.value === "") {
+          error3El.textContent = "Пароль не введен!";
+          passwordEl.style.borderColor = "red";
+        } else if (passwordEl.value !== password) {
+          error3El.textContent = "Пароль не верен!";
+          passwordEl.style.borderColor = "red";
+        }
+      });
+
+      //       Создать поле ввода и под ним заголовок h1 с текстом “Заголовок”
+      // При вводе текста в поле ввода необходимо чтобы текст внутри заголовка менятся на введенный в поле ввода
+
+      const chaneInputEl = document.querySelector("change");
+      const titleEl = document.querySelector("title");
+
+      chaneInputEl.addEventListener("input", function (e) {
+        titleEl.textContent = e.target.value;
+      });
+    </script>
+  </body>
+</html>
