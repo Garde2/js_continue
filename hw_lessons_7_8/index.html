@@ -65,20 +65,38 @@
       const formEl = document.querySelector("form");
 
       formEl.addEventListener("input", (e) => {
-        if (!e.target.classList.contains("form-control")) return;
         e.target.value === ""
           ? e.target.classList.add("error")
           : e.target.classList.remove("error");
       });
 
       formEl.addEventListener("submit", (e) => {
+        e.preventDefault();
         document.querySelector(".form-control").forEach((element) => {
           if (element.value === "") {
             element.classList.add("error");
-            e.preventDefault();
           }
         });
       });
+
+      //   const inputEl = formEl.querySelector("input");
+      //   const selectEl = formEl.querySelector("select");
+
+      //   const checkValue = () => {
+      //     if (inputEl.value) inputEl.classList.remove("error");
+      //     else {
+      //       inputEl.classList.add("error");
+      //       event.preventDefault();
+      //     }
+      //     if (selectEl.value) selectEl.classList.remove("error");
+      //     else {
+      //       selectEl.classList.add("error");
+      //       event.preventDefault();
+      //     }
+      //   };
+
+      //   formEl.addEventListener("submit", checkValue);
+      //   formEl.addEventListener("change", checkValue);
     </script>
   </body>
 </html>
