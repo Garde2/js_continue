@@ -41,7 +41,7 @@
 
       //       1. При изменении значения в input с id="from", значение содержащееся в нем должно моментально отображаться в span. То есть при печати в input'е тег span также должен меняться.
 
-      document.querySelector("#form").addEventListener("input", (e) => {
+      document.querySelector("form").addEventListener("input", (e) => {
         document.querySelector("span").textContent = e.target.value;
       });
       // вешаем на найденную форму эвентлисенер, что когда вводится что-то - ищем элем спан и в его содержимое добавляем то, что, собстно, введено
