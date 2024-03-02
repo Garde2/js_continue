@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="root">
+      <div class="persone">
+        <div class="persone-class">
+          <p class="general-class">WitchElf</p>
+          <div class="persone-nickname">Skp</div>
+          <div class="persone-nickname">Anjanolian</div>
+        </div>
+      </div>
+      <div class="persone">
+        <div class="persone-class">
+          <p class="general-class">White Lion</p>
+          <div class="persone-nickname">Dysfory</div>
+          <div class="persone-nickname">Devo</div>
+        </div>
+      </div>
+      <div class="persone">
+        <div class="persone-class">
+          <p class="general-class">Ironbreaker</p>
+          <div class="persone-nickname">Nobbi</div>
+          <div class="persone-nickname">Angheris</div>
+        </div>
+      </div>
+      <div class="persone">
+        <div class="persone-class">
+          <p class="general-class">Runepriest</p>
+          <div class="persone-nickname">Guanyin</div>
+        </div>
+      </div>
+    </div>
+    <script>
+      // задание 1) Дан массив const arr = [1, 5, 7, 9] с помощью Math.min и spread оператора, найти минимальное число в массиве, решение задание должно состоять из одной строки
+      const arr = [1, 5, 7, 9];
+      console.log(Math.min(...arr));
+      //console.log(Math.max(...arr));
+
+      //задание 2) Напишите функцию createCounter, которая создает счетчик и возвращает объект с двумя методами: increment и decrement. Метод increment должен увеличивать значение счетчика на 1, а метод decrement должен уменьшать значение счетчика на 1. Значение счетчика должно быть доступно только через методы объекта, а не напрямую.
+      function createCounter(initialValue) {
+        let value = initialValue;
+
+        return {
+          increment: function (value) {
+            value++;
+            console.log(value);
+          },
+          decrement: function (value) {
+            value--;
+            console.log(value);
+          },
+          getValue: function () {
+            return value;
+          },
+        };
+      }
+
+      const calculate = createCounter();
+
+      calculate.increment(10);
+      calculate.decrement(10);
+
+      // задание 3) Напишите рекурсивную функцию findElementByClass, которая принимает корневой элемент дерева DOM и название класса в качестве аргументов и возвращает первый найденный элемент с указанным классом в этом дереве.
+
+      //   const rootEl = document.getElementById("root");
+      //   const targetEl = findElementByClass(rootEl, "persone");
+      //   console.log(targetEl);
+
+      const rootEl = document.getElementById("root");
+
+      const targetEl = findElementByClass(rootEl, "persone");
+      console.log(targetEl);
+
+      const personeClass = findElementByClass(rootEl, "persone-class");
+      console.log(personeClass);
+
+      const personeNickName = findElementByClass(rootEl, "persone-nickname");
+      console.log(personeNickName);
+
+      const classDoesntExist = findElementByClass(rootEl, "doesnt-exist-class");
+      console.log(classDoesntExist);
+
+      function findElementByClass(rootEl, targetClass) {
+        if (rootEl.classList.contains(targetClass)) {
+          return rootEl;
+        }
+        for (const child of rootEl.children) {
+          const el = findElementByClass(child, targetClass);
+          if (el) {
+            return el;
+          }
+        }
+        return null;
+      }
+    </script>
+  </body>
+</html>
