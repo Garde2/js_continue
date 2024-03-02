@@ -454,6 +454,8 @@
         productButton.classList.add("add-to-cart-button");
         productButton.type = "button";
         productButton.textContent = "Добавить в корзину";
+        productButton.dataset.ptitle = e.title; // Добавление данных
+        productButton.dataset.pprice = e.price; // Добавление данных
 
         productBox.appendChild(productEl);
         productEl.appendChild(imgEl);
@@ -501,7 +503,7 @@
 
       function removeFromCart(event) {
         event.preventDefault();
-        const cartItem = event.target.parentElement;
+        const cartItem = event.target.closest(".cart-item");
         cartItem.remove();
       }
     </script>
