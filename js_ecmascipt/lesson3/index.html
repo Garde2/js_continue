@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- тушка -->
+
+    <script>
+      //   class Employee {
+      //     constructor(name) {
+      //       this.name = name;
+      //     }
+
+      //     displayInfo() {
+      //       console.log(`${this.name} - имя сотрудника`);
+      //     }
+      //   }
+
+      //   class Manager extends Employee {
+      //     constructor(name, department) {
+      //       super(name);
+      //       this.department = department;
+      //     }
+
+      //     displayInfo() {
+      //       console.log(
+      //         `${this.name} - имя сотрудника, отдел - ${this.department}`
+      //       );
+      //     }
+      //   }
+
+      //   const employee = new Employee("John Smith");
+      //   employee.displayInfo();
+      //   const manager = new Manager("Jane Doe", "Sales");
+      //   manager.displayInfo();
+
+      class Order {
+        productsArray = [];
+
+        constructor(orderNumber, totalPrice = 0) {
+          this.orderNumber = orderNumber;
+          this.totalPrice = totalPrice;
+        }
+
+        addProduct(product) {
+          this.productsArray.push(product);
+        }
+
+        getTotalPrice(productsArray) {
+          for (let i = 0; i < this.productsArray.length; i++) {
+            this.totalPrice += this.productsArray[i].price;
+          }
+          return this.totalPrice;
+        }
+      }
+
+      class Product extends Order {
+        constructor(name, price) {
+          super(name);
+          this.price = price;
+        }
+      }
+      //console.log(getTotalPrice());
+      const order = new Order(12345);
+      console.log(order);
+      const product1 = new Product("Phone", 500);
+      console.log(product1);
+      order.addProduct(product1);
+      const product2 = new Product("Headphones", 100);
+      console.log(product2);
+      order.addProduct(product2);
+      // print.productsArray;
+      console.log(order.productsArray);
+      console.log(order.getTotalPrice());
+    </script>
+  </body>
+</html>
