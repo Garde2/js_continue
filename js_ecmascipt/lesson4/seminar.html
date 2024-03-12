@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body class="bg-dark">
+    <header class="bg-primary text-center py-5 mb-5">
+      <h1>User List</h1>
+    </header>
+    <div class="container">
+      <div id="userList" class="row"></div>
+    </div>
+    <footer class="bg-primary text-content py-3"></footer>
+    <script>
+      fetch("https://jsonplaceholder.typicode.com/users")
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("oops");
+          }
+          return response.json();
+        })
+        .then((users) => {
+          users.sort((a, b) => a.name.localeCompare(b.name));
+
+          const userList = document.getElementById("userList");
+          users.forEach((user) => {
+            const card = document.createElement("div");
+            card.className = "col-md-4";
+            card.innerHTML = `<div class="card-body"><h5 class="card-title>${user.name}</h5><p class="card-text">${user.email}</p><p class="card-text"><i class="fas fa-phone"></i>${user.phone}</p><p class="card-text"><i class="fas fa-globe"></i>${user.website}</p></div></div>`;
+            userList.appendChild(card);
+          });
+        })
+        .catch((error) => {
+          console.error("oops... smth happend", error);
+          const userList = document.getElementById("userList");
+          userList.textContent = "failed to fetch";
+        });
+    </script>
+    <script src="https://code.jquerry.com/jquerry-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+      //first
+      let max = 0;
+      function delayedMessage(message, delay) {
+        setTimeout(() => {
+          console.log(message);
+        }, delay);
+        if (delay > max) {
+          max = delay;
+        }
+      }
+      delayedMessage("Сообщ 1", 2000);
+      delayedMessage("Сообщ 2", 1000);
+      delayedMessage("Сообщ 3", 3000);
+      setTimeout(() => {
+        console.log("Конец программы");
+      }, max);
+
+      //second
+      const tasks = [
+        { name: "task 1", time: 1000 },
+        { name: "task 2", time: 2000 },
+        { name: "task 3", time: 3000 },
+        { name: "task 4", time: 4000 },
+        { name: "task 5", time: 5000 },
+      ];
+      function doingTasks(tasks) {
+        tasks.forEach(element, (index) => {
+          setTimeout(() => {
+            console.log((task, name));
+          }, task.time);
+        });
+      }
+      doingTasks(tasks);
+
+      third;
+      fetch("http://example.com/movies.json")
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          console.log(data);
+        });
+
+      third;
+      function getDataFromServer(url) {
+        fetch(url)
+          .then((response) => {
+            return response.json;
+          })
+          .then((data) => {
+            data.products.forEach((element) => {
+              console.log(element.title);
+            });
+          })
+          .catch((error) => {
+            console.error("ошибка");
+          });
+      }
+
+      getDataFromServer(`https://api.randomdatatools.ru/?count=5`);
+      getDataFromServer(`https://dummyjson.com/products`);
+
+      //var
+      function loadData() {
+        fetch("https://api.randomdatatools.ru/?count=5")
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("doesnt              responce");
+            }
+            return response.json;
+          })
+          .then((data) => displayPoducts(data))
+          .catch((error) => {
+            console.error("ошибка", error);
+          });
+      }
+      function displayPoducts(products) {
+        const productContainer = document.getElementById("products");
+        productContainer.innerHTML = "";
+        products.forEach((product) => {
+          const productDiv = document.createElement("div");
+          productDiv.className = "product";
+          productDiv.innerHTML = `              <h2>${product.CarBrand}$product.CarModel}</h2>              <p><strong>Color:</strong>${product.CarColor}</p>              <p><strong>Yearr:</strong>${product.CarYear}</p>              <p><strong>VIN:</strong>${product.CarVIN}</p>              <p><strong>Number:</strong>${product.CarNumber}</p>              <p><strong>PTS:</strong>${product.CarPTS}</p>              <p><strong>PTS Date:</strong>${product.CarPTSDate}</p>              <p><strong>STS:</strong>${product.CarSTS}</p>              <p><strong>STS Date:</strong>${product.CarSTSDate}</p>              <p><strong>Address:</strong>${product.CarAddress}</p>              <p><strong>Adress Reg:</strong>${product.CarAddressReg}</p>
+                   <p><strong>Apartment:</strong>${product.CarApartment}</p>              <p><strong>City:</strong>${product.CarCity}</p>              <p><strong>Contry:</strong>${product.CarCountry}</p>              `;
+          productContainer.appendChild(productDiv);
+        });
+      }
+    </script>
+  </body>
+</html>
