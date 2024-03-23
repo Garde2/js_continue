@@ -1,0 +1,16 @@
+{
+  "name": "lesson_2",
+  "version": "1.0.0",
+  "description": "npm init - инициализировали новый проект ручками",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "daria_voronkova_math_package": "^1.0.0",
+    "daria_voronkova_math_package_2": "^1.1.1"
+  }
+}
