@@ -1,0 +1,15 @@
+{
+  "name": "daria_voronkova_math_package_2",
+  "version": "1.3.1",
+  "description": "для работы с мат функциями",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "garde_aairon",
+  "license": "ISC",
+  "dependencies": {
+    "number-precision": "^1.6.0"
+  }
+}
