@@ -1,0 +1,13 @@
+[
+  {
+    "page": "/",
+    "count": 4
+  },
+  {
+    "page": "/about",
+    "count": 4
+  },
+  {
+    "page": "/fortest"
+  }
+]
