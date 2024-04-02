@@ -1,17 +1,12 @@
 const express = require("express");
 const path = require("path");
 const fs = require("fs");
-const Joi = require("joi");
+
+const { checkBody, checkParam } = require("./validation/validator");
+const { idSchema, userSchema } = require("./validation/sceme");
 
 const app = express();
 const userDbPath = path.join(__dirname, "./user.json");
-
-const userSchema = Joi.object({
-  firstName: Joi.string().min(3).required(),
-  secondName: Joi.string().min(2).required(),
-  age: Joi.number().min(0).required(),
-  city: Joi.string().min(2).required(),
-});
 
 let uniqId = 1;
 
@@ -22,7 +17,7 @@ app.get("/users", (req, res) => {
   res.send({ users });
 });
 
-app.get("/users/:id", (req, res) => {
+app.get("/users/:id", checkParam(idSchema), (req, res) => {
   const users = JSON.parse(fs.readFileSync(userDbPath));
   const findUser = users.find((user) => {
     return user.id === Number(req.params.id); //params и querry после ?
@@ -30,13 +25,7 @@ app.get("/users/:id", (req, res) => {
   res.send({ user: [findUser] });
 });
 
-app.post("/users", (req, res) => {
-  const resultValidation = userSchema.validate(req.body);
-
-  if (resultValidation.error) {
-    return res.status(440).send({ error: resultValidation.error.details });
-  }
-
+app.post("/users", checkBody(userSchema), (req, res) => {
   uniqId++;
   const users = JSON.parse(fs.readFileSync(userDbPath));
   users.push({ id: uniqId, ...req.body }); //всё, что в body положи сюда - ... - "спред оператор"
@@ -44,30 +33,29 @@ app.post("/users", (req, res) => {
   res.send({ id: uniqId });
 });
 
-app.put("/users/:id", (req, res) => {
-  const resultValidation = userSchema.validate(req.body);
-
-  if (resultValidation.error) {
-    return res.status(440).send({ error: resultValidation.error.details });
+app.put(
+  "/users/:id",
+  checkParam(idSchema),
+  checkBody(userSchema),
+  (req, res) => {
+    const users = JSON.parse(fs.readFileSync(userDbPath));
+    const findUser = users.find((user) => {
+      return user.id === Number(req.params.id); //params и querry после ?
+    });
+    if (findUser) {
+      findUser.firstName = req.body.firstName;
+      findUser.secondName = req.body.secondName;
+      findUser.age = req.body.age;
+      findUser.city = req.body.city;
+      fs.writeFileSync(userDbPath, JSON.stringify(users));
+      res.send({ user: findUser });
+    } else {
+      res.send({ user: null });
+    }
   }
+);
 
-  const users = JSON.parse(fs.readFileSync(userDbPath));
-  const findUser = users.find((user) => {
-    return user.id === Number(req.params.id); //params и querry после ?
-  });
-  if (findUser) {
-    findUser.firstName = req.body.firstName;
-    findUser.secondName = req.body.secondName;
-    findUser.age = req.body.age;
-    findUser.city = req.body.city;
-    fs.writeFileSync(userDbPath, JSON.stringify(users));
-    res.send({ user: findUser });
-  } else {
-    res.send({ user: null });
-  }
-});
-
-app.delete("/users/:id", (req, res) => {
+app.delete("/users/:id", checkParam(idSchema), (req, res) => {
   const users = JSON.parse(fs.readFileSync(userDbPath));
   const findUser = users.findIndex((user) => {
     return user.id === Number(req.params.id);
