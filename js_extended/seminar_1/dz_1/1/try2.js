@@ -63,6 +63,14 @@ class Menu {
   }
 }
 
+for (const item of dish) {
+  for (const menuItem of menu) {
+    if (menuItem.name !== dish.name) {
+      throw `${menuItem.type} "${menuItem.name}" нет такого блюда!`;
+    }
+  }
+}
+
 const menu = new Menu();
 menu = [
   { type: "Пицца", name: "Маргарита", quantity: 1 },

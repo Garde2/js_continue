@@ -49,56 +49,53 @@ const worker = [
   { specialities: "Десерт", povar: "Анна" },
 ];
 
-// class Menu {
-//   constructor(name, quantity, type) {
-//     this.name = name;
-//     this.quantity = quantity;
-//     this.type = type;
-//   }
-// }
-// const menu = new Menu();
+class Dish {
+  constructor(name, quantity, type) {
+    this.name = name;
+    this.quantity = quantity;
+    this.type = type;
+  }
+}
+
+// const menu = new Dish();
 const menu = [
-  { type: "Пицца", name: "Маргарита", quantity: 1 },
+  { name: "Маргарита", quantity: 1, type: "Пицца" },
   {
-    type: "Пицца",
     name: "Пепперони",
     quantity: 1,
+    type: "Пицца",
   },
   {
-    type: "Пицца",
     name: "Три сыра",
     quantity: 1,
+    type: "Пицца",
   },
   {
-    type: "Суши",
     name: "Филадельфия",
     quantity: 1,
+    type: "Суши",
   },
   {
-    type: "Суши",
     name: "Калифорния",
     quantity: 1,
+    type: "Суши",
   },
   {
-    type: "Суши",
     name: "Чизмаки",
     quantity: 1,
+    type: "Суши",
   },
   {
-    type: "Суши",
     name: "Сеякемаки",
     quantity: 1,
+    type: "Суши",
   },
   {
-    type: "Десерт",
     name: "Тирамису",
     quantity: 1,
-  },
-  {
     type: "Десерт",
-    name: "Чизкейк",
-    quantity: 1,
   },
+  { name: "Чизкейк", quantity: 1, type: "Десерт" },
 ];
 
 let clientOrder = [];
@@ -106,6 +103,39 @@ let clientOrder = [];
 // Вам необходимо реализовать класс, который управляет заказами и поварами.
 class Manager {
   newOrder(client, ...dish) {
+    dish = dish.map((item) => new Dish(item.name, item.quantity, item.type));
+    console.log(dish);
+    console.log(dish[0]);
+    console.log(dish[0].name);
+    console.log(menu[1].name);
+    console.log(menu);
+
+    // for (const item of dish) {
+    //   forEach (item of menu) {
+    //     if (i.name != menu[1].name) {
+    //       throw `${i.type} "${i.name}" нет такого блюда!`;
+    //     }
+    //   }
+    // }
+
+    // for (let i = 0; i < menu.length; i++) {
+    //   if (!dish[i].name in menu.name) {
+    //     throw `${dish[i].type} "${dish[i].name}" нет такого блюда!`;
+    //   }
+    // }
+    // foreach(obj in dish) {
+    //   if (!dish[i].name in menu.name) {
+    //     throw `${dish[i].type} "${dish[i].name}" нет такого блюда!`;
+    //   }
+    // };
+    // for (let num of menu.values()) {
+    //   if (num.name != dish.name) {
+    //     throw `${num.type} "${num.name}" нет такого блюда!`;
+    //   }
+    // }
+
+    //почемц же оно не работает =(
+
     console.log(`Клиент ${client.firstname} заказал:`);
 
     for (let i = 0; i < dish.length; i++) {
