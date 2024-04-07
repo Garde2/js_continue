@@ -16,8 +16,7 @@
 "Название альбома - Исполнитель (Год выпуска)"
 */
 
-const musicCollection = new Object();
-musicCollection.alboms = [
+const musicCollection = [
   {
     title: "Перекресток",
     artist: "Акапелло",
@@ -35,6 +34,29 @@ musicCollection.alboms = [
   },
 ];
 
-for (const album of musicCollection.alboms) {
-  console.log(`${album.title} - ${album.artist} (${album.year})`);
+const musicShop = {
+  musicCollection,
+  [Symbol.iterator]() {
+    let index = 0;
+    return {
+      next: () => {
+        if (index < this.musicCollection.length) {
+          return {
+            value: this.musicCollection[index++],
+            done: false,
+          };
+        }
+        return {
+          value: undefined,
+          done: true,
+        };
+      },
+    };
+  },
+};
+
+const iterator = musicShop[Symbol.iterator]();
+
+for (const album of musicShop) {
+  console.log(album);
 }
