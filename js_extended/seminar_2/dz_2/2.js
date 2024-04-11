@@ -65,3 +65,46 @@ const initialData = [
     ],
   },
 ];
+
+let idProducts = uid();
+const products = document.querySelector(".products");
+
+initialData.forEach((elem) => {
+  const productEl = document.createElement("div");
+  productEl.textContent += elem.product;
+  products.appendChild(productEl);
+
+  const reviews = document.createElement("ol");
+  elem.reviews.forEach((elem) => {
+    idProducts = elem.id;
+    reviews.innerHTML += `<li>${elem.text} (ID ${idProducts})</li>`;
+  });
+
+  products.appendChild(reviews);
+  const inputUserEl = document.createElement("input");
+
+  const buttonEl = document.createElement("button");
+  buttonEl.textContent = "Отправить";
+  buttonEl.addEventListener("click", () => {
+    const userInput = inputUserEl.value;
+    if (userInput.length < 50 || userInput.length > 500) {
+      messageEl.textContent =
+        "Ошибка! Длина комментария должна быть от 50 до 500 символов!";
+    } else {
+      const liEl = document.createElement("li");
+      liEl.textContent = userInput;
+      liEl.id = uid();
+      reviews.innerHTML += `<li>${liEl.textContent} (ID ${liEl.id})</li>`;
+      initialData.push(reviews.lastChild);
+      reviews.appendChild(reviews.lastChild);
+      inputUserEl.value = "";
+    }
+  });
+  products.appendChild(inputUserEl);
+  products.appendChild(buttonEl);
+});
+
+const messageEl = document.createElement("div");
+//errorMessage.textContent = "Ошибка!";
+messageEl.style.color = "red";
+products.appendChild(messageEl);
