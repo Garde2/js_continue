@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <input type="text" id="item-input" placeholder="Введите пункт" />
+    <button id="add-button">Добавить</button>
+    <ul id="item-list"></ul>
+
+    <script>
+      const inputField = document.getElementById("item-input");
+      const addButton = document.getElementById("add-button");
+      const itemList = document.getElementById("item-list");
+
+      //получаем список из локала если он есть
+      let shoppingList = JSON.parse(localStorage.getItem("shoppingList")) || [];
+
+      //обновляем списк на странице и сохраняем в локале
+      const updateShoppingList = () => {
+        // очистили список н странице
+        itemList.innerHTML = "";
+
+        //новые элементы списка для каждого пункта
+        shoppingList.forEach((item) => {
+          const listItem = document.createElement("li");
+          listItem.textContent = item;
+          itemList.append(listItem);
+        });
+
+        //сохранили обновленный список в локале
+        localStorage.setItem("shoppingList", JSON.stringify(shoppingList));
+      };
+
+      addButton.addEventListener("click", () => {
+        const newItem = inputField.value.trim(); //trim убираем пробелы до и после
+
+        // //проверяем, есть ли такой элемент в списке
+        // if (shoppingList.includes(newItem)) {
+        //   alert(`${newItem} уже есть в списке`);
+        // } else {
+        //   shoppingList.push(newItem);
+        //   inputField.value = "";
+        //   updateShoppingList();
+        // }
+
+        if (newItem !== "") {
+          shoppingList.push(newItem);
+          inputField.value = "";
+          updateShoppingList();
+        }
+      });
+      updateShoppingList();
+    </script>
+  </body>
+</html>
