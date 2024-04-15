@@ -1,0 +1,33 @@
+<ul id="taskList"></ul>
+<li>
+  Задача 1<button class="delete-button">Delete</button>
+  <button class="clone-button">Клонировать</button>
+</li>
+<li>
+  Задача 2<button class="delete-button">Delete</button>
+  <button class="clone-button">Клонировать</button>
+</li>
+<li>
+  Задача 3<button class="delete-button">Delete</button>
+  <button class="clone-button">Клонировать</button>
+</li>
+
+<script>
+  const taskList = document.getElementById("taskList");
+
+  taskList.addEventListener("click", (event) => {
+    if (event.target.classList.contains("delete-button")) {
+      const taskItem = event.target.closest("li");
+      taskItem.remove();
+
+      localStorage.setItem("taskList", taskList.innerHTML);
+    }
+    if (event.target.classList.contains("clone-button")) {
+      const taskItem = event.target.closest("li");
+      const clonedTaskItem = taskItem.cloneNode(true); //склонировали задачу
+      taskItem.after(clonedTaskItem); //и вставили после текущей
+
+      localStorage.setItem("taskList", taskList.innerHTML);
+    }
+  });
+</script>

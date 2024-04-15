@@ -1,0 +1,50 @@
+<style>
+  .reply-form {
+    display: none;
+  }
+</style>
+
+<div class="comment">
+  <p>Комментарий один</p>
+  <button class="reply-button">Ответить</button>
+  <form class="reply-form">
+    <textarea placeholder="Ответ..."></textarea>
+    <button class="submit-button">Отправить</button>
+  </form>
+</div>
+<div class="comment">
+  <p>Комментарий другой</p>
+  <button class="reply-button">Ответить</button>
+  <form class="reply-form">
+    <textarea placeholder="Ответ..."></textarea>
+    <button class="submit-button">Отправить</button>
+  </form>
+</div>
+<div class="comment">
+  <p>Комментарий третий</p>
+  <button class="reply-button">Ответить</button>
+  <form class="reply-form">
+    <textarea placeholder="Ответ..."></textarea>
+    <button class="submit-button">Отправить</button>
+  </form>
+</div>
+
+<script>
+  const replyButtons = document.querySelectorAll(".reply-buttons");
+
+  replyButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const commit = button.closest(".comment");
+      const replyForm = comment.querySelector(".reply-form");
+
+      //скрываем все ормы ответов
+      const allReplyForms = document.querySelectorAll(".reply-form");
+      allReplyForms.forEach((form) => {
+        if (form !== replyForm) {
+          form.style.display = "none";
+        }
+      });
+      replyForm.style.display = "block";
+    });
+  });
+</script>
