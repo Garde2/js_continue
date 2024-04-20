@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- ul>li{list}*5 -->
+    <div class="context-menu">
+      <ul>
+        <li>list</li>
+        <li>list</li>
+        <li>list</li>
+        <li>list</li>
+        <li>list</li>
+      </ul>
+    </div>
+    <script>
+      const contextMenu = document.querySelector(".context-menu");
+      //блок на всю длину
+      document.addEventListener("click", function (e) {
+        if (e.target !== contextMenu) {
+          contextMenu.style.display = "none";
+        }
+      });
+
+      document.addEventListener("keydown", function (event) {
+        if (event.code === "Space") {
+          contextMenu.style.display = "block";
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <button id="btn">Clickme again!</button>
+    <script>
+      const button = document.querySelector("#btn");
+      button.addEventListener("click", function (event) {
+        if (event.isTrusted) {
+          console.log("Клик - доверенное событие");
+        } else {
+          console.log("Клик - не доверенное событие");
+        }
+      });
+
+      function simulateClick() {
+        const clickEvent = new Event("click", { bubbles: true }); //всплытие
+        button.dispatchEvent(clickEvent);
+      }
+
+      setTimeout(simulateClick, 2000); //случится автоклик через 2 сек после загрузки страницы и он НЕ доверенный
+      //а если сам кликнешь на кнопку, то доверенный
+    </script>
+  </body>
+</html>
+
+<!-- это чтоб при регистрации кликов по кнопке на автокликали 25 раз, хотя в реале
+был один, чтоб не обманывали статистику -->

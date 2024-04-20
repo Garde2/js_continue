@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .menu-item {
+        padding: 10px;
+        cursor: pointer;
+      }
+      /*.menu-item:hover {
+        background-color: red;
+        /* наш стайл, кка известно, сильнее
+      } */
+    </style>
+  </head>
+  <body>
+    <div class="menu">
+      <div class="menu-item">Пункт 1</div>
+      <div class="menu-item">Пункт 2</div>
+      <div class="menu-item">Пункт 3</div>
+    </div>
+    <script>
+      const nemuItems = document.querySelectorAll("menu-item");
+
+      menuItem.forEach((item) => {
+        // этих лучше не использовать, только если css не справляется
+        // item.addEventListener("mouseover", function (e) {
+        //   item.style.backgroundColor = "#f0f0f0";
+        // });
+        // item.addEventListener("mouseout", function (e) {
+        //   item.style.backgroundColor = "";
+        // });
+        item.addEventListener("click", function (e) {
+          console.log(item.textContent);
+        });
+      });
+    </script>
+  </body>
+</html>
+
+<!-- в чем отличие между ховером и маусовером Зачем: если я навожу через джава скрипт
+- могу работать с любым блоком.
+а так чтоб в шапке нажал, а в подвале произошло - большая редкость -->

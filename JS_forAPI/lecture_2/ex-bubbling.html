@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+        margin: 0;
+      }
+
+      ul {
+        padding: 0;
+      }
+
+      li {
+        padding: 10px;
+        cursor: pointer;
+      }
+
+      li:hover {
+        background-color: #f0f0f0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <ul id="list">
+      <li>Элем 1</li>
+      <li>Элем 2</li>
+      <li>Элем 3</li>
+      <li>Элем 4</li>
+      <li>Элем 5</li>
+    </ul>
+    <script>
+      const list = document.getElementById("list");
+
+      list.addEventListener("click", function (e) {
+        //console.log(this);  //// this это весь блок
+        // а это именны элементы li
+        if (e.target.tagName === "LI") {
+          console.log("li");
+          console.log(`Вы нажали на ${e.target}`);
+          //[object HTMLLIElement]
+          console.log(`Вы нажали на ${e.target.textContent}`);
+          //Элем 1
+        }
+      });
+    </script>
+  </body>
+</html>
+
+<!-- 33:13 - методичка развернутый пример отдельно стр 17/27-->

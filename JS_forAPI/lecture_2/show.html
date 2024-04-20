@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Скрыть/показать контент</title>
+    <style>
+      .content {
+        opacity: 0;
+        max-height: 0;
+        overflow: hidden;
+        transition: all 0.3s ease;
+      }
+
+      .visible {
+        opacity: 1;
+        /* высота при отображении  */
+        max-height: 500px;
+        /* overflow: auto; */
+        transition: all 0.3s ease;
+      }
+    </style>
+  </head>
+  <body>
+    <input type="checkbox" id="toggleCheckbox" />
+    <label for="toggleCheckbox">Показать/скрыть инфо</label>
+
+    <div class="content">
+      <h1>Это заголовок</h1>
+      <p>Это текст</p>
+    </div>
+    <script>
+      const checkbox = document.getElementById("toggleCheckbox");
+      const content = document.querySelector(".content");
+
+      checkbox.addEventListener("change", function (e) {
+        console.log(this); //  это тыкается на тот самый блок инпут
+
+        if (this.cheked) {
+          content.classList.add("visible");
+        } else {
+          content.classList.remove("visible");
+        }
+        // if (e.target.checked) {
+        //   content.style.display = "block";
+        // } else {
+        //   content.style.display = "none";
+        // }
+      });
+    </script>
+  </body>
+</html>
