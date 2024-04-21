@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Выбор страны</title>
+  </head>
+  <body>
+    <h1>Выберите страну:</h1>
+    <!-- можно через документ форм -->
+    <form id="country-form">
+      <select id="country-select">
+        <option value="">Выберите странуЖ</option>
+        <option value="Russia">Russia</option>
+        <option value="USA">USA</option>
+        <option value="China">China</option>
+        <option value="Japan">Japan</option>
+        <option value="Germany">Germany</option>
+        <option value="France">France</option>
+        <option value="UK">UK</option>
+        <option value="USA">USA</option>
+      </select>
+    </form>
+
+    <h2>Столицы:</h2>
+    <p id="capital-info">Выберите страну - узнаете столицу</p>
+
+    <script>
+      const selectElement = document.querySelector("#country-select");
+      const capitalInfoElement = document.querySelector("#capital-info");
+
+      //   document.addEventListener('change', function() {});
+
+      selectElement.onchange = function () {
+        const selectedCountry = selectElement.value;
+        // console.log(selectedCountry);
+        let capital = "";
+
+        switch (selectedCountry) {
+          case "Russia":
+            capital = "Moscow";
+            break;
+          case "USA":
+            capital = "Washington";
+            break;
+          case "China":
+            capital = "Beijing";
+            break;
+          case "Japan":
+            capital = "Tokyo";
+            break;
+          case "Germany":
+            capital = "Berlin";
+            break;
+          case "France":
+            capital = "Paris";
+            break;
+          case "UK":
+            capital = "London";
+            break;
+          case "USA":
+            capital = "Washington";
+            break;
+          default:
+            capital = "Выберите страну!";
+            break;
+        }
+
+        capitalInfoElement.textContent = capital;
+        //console.log(capitalInfoElement);
+      };
+    </script>
+  </body>
+</html>

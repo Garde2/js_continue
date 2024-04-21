@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Список товаров:</h1>
+    <label for="sort-select">Sort by</label>
+    <select id="sort-select">
+      <option value="asc">Возрастание</option>
+      <option value="desc">Убывание</option>
+    </select>
+
+    <ul id="product-list" class="product-list">
+      <!-- лучше сортировать по дата атрибутам. а тут выцепим цифры из текста -->
+      <li class="product-list__item">Товар 1 - $50</li>
+      <li class="product-list__item">Товар 1 - $30</li>
+      <li class="product-list__item">Товар 1 - $70</li>
+      <li class="product-list__item">Товар 1 - $20</li>
+    </ul>
+
+    <script>
+      const sortSelect = document.querySelector("#sort-select"); //получили ссылку на элем по id
+      const productList = document.querySelector("#product-list");
+      const productItems = Array.from(
+        //получили ссылки на все элементы
+        document.querySelectorAll(".product-list__item")
+      );
+      console.log(productItems);
+
+      //change будет работать так же
+      sortSelect.onchange = function () {
+        const selectOption = sortSelect.value; //получили опцию по которой сортируем (asc или desc)
+
+        if (selectOption === "asc") {
+          // productItems.sort((a, b) => a.textContent.localeCompare(b.textContent));
+          productItems.sort((a, b) => {
+            const priceA = parseInt(a.textContent.split("- $")[1]); //извлекаем цену из текста элемента. иначе взяли бы из дата аттрибутов, добавили их в массив и стилизовали
+            console.log(priceA);
+            const priceB = parseInt(b.textContent.split("- $")[1]);
+            console.log(priceB);
+            return priceA - priceB;
+          });
+        } else if (selectOption === "desc") {
+          productItems.sort((a, b) => {
+            const priceA = parseInt(a.textContent.split("- $")[1]);
+            const priceB = parseInt(b.textContent.split("- $")[1]);
+            return priceB - priceA;
+          });
+        }
+
+        productItems.forEach((item) => productList.appendChild(item));
+      };
+    </script>
+  </body>
+</html>

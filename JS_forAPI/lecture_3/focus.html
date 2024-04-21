@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>28:13</title>
+  </head>
+  <body>
+    <style>
+      .invalid {
+        border-color: red;
+      }
+      #error {
+        color: red;
+      }
+    </style>
+
+    <form name="superForm">
+      Ваш email: <input type="email" name="input" />
+      <div id="error"></div>
+    </form>
+
+    <script>
+      const imput = document.forms.superForm.input; //можно и через класс и qs
+      const error = document.getElementById("#error");
+
+      //   input.onblur = function () {
+      //     if (!input.value.includes("@")) {
+      //       input.classList.add("invalid");
+      //       error.textContent = "Please enter correct email!"; //если больше контента, то innerHTML
+      //     }
+      //   };
+
+      //(e) не нужен, но все ранво будет работать, а так же лисенеры можно встретить как стелочные
+      input.addEventListener("blur", function () {
+        if (!input.value.includes("@")) {
+          input.classList.add("invalid");
+          error.textContent = "Please enter correct email!"; //если больше контента, то innerHTML
+        }
+      });
+
+      //   input.onfocus = function () {
+      //     if (this.classList.contains("invalid")) {
+      //       this.classList.remove("invalid");
+      //       error.innerHTML = ""; //для примера
+      //     }
+      //   };
+
+      input.addEventListener("focus", function () {
+        if (this.classList.contains("invalid")) {
+          this.classList.remove("invalid");
+          error.innerHTML = ""; //для примера
+        }
+      });
+    </script>
+  </body>
+</html>
