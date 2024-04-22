@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <form name="superForm">
+      title: <input name="title" value="test product" />
+      <br />
+      price: <input name="price" type="number" value="13.5" />
+      <br />
+      description: <input name="description" value="lorem lorem" />
+      <br />
+      image: <input name="image" value="https://i.pravatar.cc" />
+      <br />
+      category: <input name="category" value="electronical" />
+      <input type="submit" />
+    </form>
+    <script>
+      "use strict";
+      const form = document.forms.superForm;
+      form.onsubmit = async (e) => {
+        e.preventDefault();
+        let response = await fetch("https://fakestoreapi.com/products", {
+          method: "POST",
+          body: new FormData(form),
+        });
+
+        let result = await response.json();
+        console.log(result);
+      };
+
+      (async () => {
+        //1 - начали загрузку фетч, получам поток для чтения
+        let response = await fetch(
+          "https://api.github.com/repos/javascript-tutorial/en.javascript.info/commits?per_page=100"
+        );
+
+        const reader = response.body.getReader();
+
+        //2 - начали чтение потока - считываем данные
+        let receivedLength = 0; //cколько байт изначально
+        let chunks = []; //массив полученных двоичныхъ фрагментов, составляющих тело ответа
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          chunks.push(value);
+          receivedLength += value.length;
+
+          console.log(`Получено ${receivedLength} bytes`);
+        }
+
+        //3 - cоединим фрагменты в общий типизированный массив Unit8Array
+
+        let chunksAll = new Unit8Array(receivedLength);
+        let position = 0;
+        for (let chunk of chunks) {
+          chunksAll.set(chunk, position);
+          position += chunk.length;
+        }
+
+        //4 - декодируем
+        let result = new TextDecoder("utf-8").decode(chunksAll);
+
+        //5 - Ready!
+        let commits = JSON.parse(result);
+        console.log(commits);
+      })();
+    </script>
+  </body>
+</html>
+<!-- 
+formData.delete(name) - удалит поле с именем name.
+formData.get(name) вернет значения поля с именем name.
+formData.has(name) если есть такое поле - вернет true, иначе - false.
+formData.append(name, value) - добавит объекту поле с именем name и значением value.
+formdara.append(name, blob, fileName) - добавит поле с файлом, кот записывается во второй аргумент, третий задачет имя файла -->
+
+<!-- lecture 57:54 -->

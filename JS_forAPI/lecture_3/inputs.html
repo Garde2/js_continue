@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <form name="superForm">
+      <p>email: <input type="email" name="email" /></p>
+      <div>
+        selectForm:
+        <select name="selectForm">
+          <option value="GeekBrains">GeekBrains</option>
+          <option value="Google">Google</option>
+          <option value="Microsoft">Microsoft</option>
+        </select>
+      </div>
+      <p>checkbox: <input type="checkbox" name="checkbox" /></p>
+    </form>
+    <script>
+      form.email.onchange = () => {
+        console.log("change - email:", form.email.value);
+      };
+      form.email.onchange = () => {
+        console.log("input - email:", form.email.value);
+      };
+
+      form.selectForm.onchange = () => {
+        console.log("change - selectForm:", form.selectForm.value);
+      };
+      form.selectForm.onchange = () => {
+        console.log("input - selectForm:", form.selectForm.value);
+      };
+
+      form.checkbox.onchange = () => {
+        console.log("change - checkbox:", form.checkbox.checked); //у чекбокса инпут и чендж дают true если выбрано и false если не нажато. у обоих
+      };
+      form.checkbox.onchange = () => {
+        console.log("input - checkbox:", form.checkbox.checked);
+      };
+
+      //уишенка на торте (с)
+      form.email.oncut =
+        form.email.oncopy =
+        form.email.onpaste =
+          (event) => {
+            console.log(
+              event.type + " - " + event.clipboardData.getData("text/plain")
+            );
+          };
+      //скопировали onpaste и вставили в окно вводе email. видим input - email: onpaste. еще туда вставили -видим дважды его. вырезали часть - сразу в консоли то, что осталось
+    </script>
+  </body>
+</html>
