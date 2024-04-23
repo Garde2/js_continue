@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Случайные пользователи</title>
+  </head>
+  <body>
+    <h1>Инфа о случайных пользователях</h1>
+    <label for="sort-select">Sort by:</label>
+    <select id="sort-select">
+      <option value="name">By name</option>
+      <option value="age">By age</option>
+    </select>
+    <div id="user-list"></div>
+
+    <script>
+      const userListElement = document.querySelector("#user-list");
+      const sortSelect = document.querySelector("#sort-select");
+
+      //грузим данные с помощью API, преобразуем ответ в формат json, получаем массив с данными
+      fetch("https://randomuser.me/api/?results=5")
+        .then((response) => response.json())
+        .then((data) => {
+          let users = data.results;
+
+          //первонач вывод списка
+          renderUserList(users);
+
+          //обработали событие в селекте
+          sortSelect.addEventListener("change", () => {
+            const selectOption = sortSelect.value; //получили выбранным парам сортировки
+            users = sortUsers(users, selectOption); //сортируем по параметру
+
+            renderUserList(users); //выводим отсортированный
+          });
+        })
+        .catch((error) => console.log(error));
+
+      //выведем список пользователей
+      function renderUserList(users) {
+        //очистили список перед вызовом
+        userListElement.innerHTML = "";
+        //создали элем HTML для каждого пользователя и добавляем их в список
+
+        users.forEach((user) => {
+          const userElement = creareUserElement(user);
+          userListElement.appendChild(userElement);
+        });
+      }
+
+      //для создания элемента пользователя
+
+      function creareUserElement(user) {
+        const userContainer = document.createElement("div");
+        userContainer.classList.add("user");
+
+        const userName = document.createElement("p");
+        userName.textContent = `${user.name.first} ${user.name.last}`;
+        userContainer.appendChild(userName);
+
+        const userAge = document.createElement("p");
+        userAge.textContent = `Age: ${user.dob.age}`;
+        userContainer.appendChild(userAge);
+
+        return userContainer;
+      }
+
+      //для сорт юзеров
+      function sortUsers(users, sortBy) {
+        return users.sort((a, b) => {
+          if (sortBy === "name") {
+            return a.name.first.localeCompare(b.name.first); //сорт по имени с спольтз метода localCompare()
+          } else if (sortBy === "age") {
+            return a.dob.age - b.dob.age;
+          }
+        });
+      }
+    </script>
+  </body>
+</html>
