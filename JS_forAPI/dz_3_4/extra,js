@@ -1,0 +1,69 @@
+async function handlePreviousButtonClick() {
+  // нам нужно показать из local storage предыдущую просмотренную фотогрфию, информацию о фотографе и лайках
+  const likedImageId = localStorage.getItem("likedImageId");
+  const history = JSON.parse(localStorage.getItem("history")) || [];
+  const index = history.indexOf(likedImageId);
+  const previousImageId = history[index - 1];
+  // likedImageId = imageData.id;
+  // localStorage.setItem("likedImageId", likedImageId);
+  const imageData = await getRandomImage(); ////ЭТО НЕВЕРНО
+  updateImageAndInfo(imageData);
+  localStorage.setItem("likedImageId", previousImageId);
+  history.splice(index - 1, 1);
+  localStorage.setItem("history", JSON.stringify(history));
+}
+
+async function handleNextButtonClick() {
+  // нам нужно показать из local storage следующую просмотренную фотогрфию, информацию о фотографе и лайках, а если такой нет, то зайгрузить новое рандомное фото
+  const likedImageId = localStorage.getItem("likedImageId");
+  const history = JSON.parse(localStorage.getItem("history")) || [];
+  const index = history.indexOf(likedImageId);
+
+  if (index === -1) {
+    const imageData = await getRandomImage();
+    updateImageAndInfo(imageData);
+    history.push(imageData.id);
+    localStorage.setItem("history", JSON.stringify(history));
+  } else {
+    const previousImageId = history[index - 1];
+    const imageData = await getRandomImage();
+    updateImageAndInfo(imageData);
+    localStorage.setItem("likedImageId", previousImageId);
+    history.splice(index, 1);
+    localStorage.setItem("history", JSON.stringify(history));
+  }
+}
+
+async function handlePreviousButtonClick() {
+  // нам нужно показать из local storage предыдущую просмотренную фотогрфию, информацию о фотографе и лайках
+  const likedImageId = localStorage.getItem("likedImageId");
+  const history = JSON.parse(localStorage.getItem("history")) || [];
+  const index = history.indexOf(likedImageId);
+  const previousImageId = history[index - 1];
+  // likedImageId = imageData.id;
+  // localStorage.setItem("likedImageId", likedImageId);
+  const imageData = await getRandomImage(); ////ЭТО НЕВЕРНО
+  updateImageAndInfo(imageData);
+  localStorage.setItem("likedImageId", previousImageId);
+  history.splice(index - 1, 1);
+  localStorage.setItem("history", JSON.stringify(history));
+}
+async function handleNextButtonClick() {
+  // нам нужно показать из local storage следующую просмотренную фотогрфию, информацию о фотографе и лайках, а если такой нет, то зайгрузить новое рандомное фото
+  const likedImageId = localStorage.getItem("likedImageId");
+  const history = JSON.parse(localStorage.getItem("history")) || [];
+  const index = history.indexOf(likedImageId);
+  if (index === -1) {
+    const imageData = await getRandomImage(); ////ЭТО НЕВЕРНО
+    updateImageAndInfo(imageData);
+    history.push(imageData.id);
+    localStorage.setItem("history", JSON.stringify(history));
+  } else {
+    const previousImageId = history[index + 1];
+    const imageData = await getRandomImage();
+    updateImageAndInfo(imageData);
+    localStorage.setItem("likedImageId", previousImageId);
+    history.splice(index + 1, 1);
+    localStorage.setItem("history", JSON.stringify(history));
+  }
+}
