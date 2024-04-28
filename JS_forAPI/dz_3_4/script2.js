@@ -1,5 +1,6 @@
 //Доразобраться
 //зарегистрироваться под именем формы
+//Переделать
 //записываем в отдельный массив просмотренные фото для кнопок - вперед назад (previous-button and next-button)
 //в другой массив мы записываем, если лайкнули, id фото и имя пользователя, как ключ - значение
 //при подгрузке картинки, мы ищем, содержится ли в массиве юзеров текущий юзер с айди текущей картинки?  и если находим - отображаем кол-во лайков +1, кнопка дизлайк активна, кнопка лайк неактивна. Если жмем дизайк - запись "пользователь-id" удаляется, кнопка дизлайк - неактивна, кнопка лайк активно.
@@ -70,14 +71,14 @@ async function handleLikeButtonClick(imageData) {
 }
 
 async function handleDislikeButtonClick(imageData) {
-  let dislikedImageId = imageData.id;
+  let likedImageId = imageData.id;
   const likesCountElement = document.querySelector("#likes-count");
   const likesCount = parseInt(likesCountElement.textContent);
   const dislikeButtonElement = document.querySelector("#dislike-button");
 
   dislikeButtonElement.addEventListener("click", () => {
     likesCountElement.innerHTML = likesCount - 1;
-    localStorage.setItem("dislikedImageId", dislikedImageId);
+    localStorage.setItem("likedImageId", likedImageId);
     history.push(imageData.id);
     localStorage.setItem("history", JSON.stringify(history));
   });
@@ -109,26 +110,26 @@ window.addEventListener("load", async () => {
 });
 
 //Доразобраться
-function registerUser(name) {
-  const users = JSON.parse(localStorage.getItem("users")) || [];
-  users.push(name);
-  localStorage.setItem("users", JSON.stringify(users));
-}
+// function registerUser(name) {
+//   const users = JSON.parse(localStorage.getItem("users")) || [];
+//   users.push(name);
+//   localStorage.setItem("users", JSON.stringify(users));
+// }
 
-function isUserRegistered(name) {
-  const users = JSON.parse(localStorage.getItem("users")) || [];
-  return users.includes(name);
-}
+// function isUserRegistered(name) {
+//   const users = JSON.parse(localStorage.getItem("users")) || [];
+//   return users.includes(name);
+// }
 
-document
-  .getElementById("register-form")
-  .addEventListener("submit", function (event) {
-    event.preventDefault();
-    const name = document.getElementById("name").value;
-    if (!isUserRegistered(name)) {
-      registerUser(name);
-      alert("User registered successfully!");
-    } else {
-      alert("User already registered!");
-    }
-  });
+// document
+//   .getElementById("register-form")
+//   .addEventListener("submit", function (event) {
+//     event.preventDefault();
+//     const name = document.getElementById("name").value;
+//     if (!isUserRegistered(name)) {
+//       registerUser(name);
+//       alert("User registered successfully!");
+//     } else {
+//       alert("User already registered!");
+//     }
+//   });
