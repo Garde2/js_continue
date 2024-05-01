@@ -7,6 +7,7 @@
 
 const apiKey = "D8qFMNk_449W0IT3Q0U2Vm9Fm5aXcwUrOwN6tDjrEvc"; //наш ключик
 const history = JSON.parse(localStorage.getItem("history")) || []; //берем то, что сохранено в локале или создаем новый массив
+const userKey = JSON.parse(localStorage.getItem("userKey")) || [];
 
 //чтоб взять рандомфото топай по этому урлу, подставляй ки, сохраняй в константу дата в формате json и оказывай чё сохранил
 async function getRandomImage() {
@@ -19,6 +20,24 @@ async function getRandomImage() {
   } catch (error) {
     console.error("Error fetching image:", error);
   }
+  saveImageAndInfo(imageData);
+}
+
+//сохраним полученную картинку и инфо о ней в local storage
+
+async function saveImageAndInfo(imageData) {
+  const iEId = imageData.id;
+  const iEUrls = imageData.urls.regular;
+  const iEUser = imageData.user.name;
+  const iELikes = imageData.likes;
+
+  localStorage.setItem("history", iEId, iEUrls, iEUser, iELikes);
+}
+
+//нужно доставать из истории
+
+async function getImageFromHistory() {
+  return JSON.parse(localStorage.getItem("history")) || [];
 }
 
 async function updateImageAndInfo(imageData) {
@@ -63,10 +82,13 @@ async function handleLikeButtonClick(imageData) {
 
   likeButtonElement.addEventListener("click", () => {
     likesCountElement.innerHTML = likesCount + 1;
-    localStorage.setItem("likedImageId", likedImageId);
+    localStorage.setItem("history", likedImageId);
+    localStorage.setItem("userKey", likedImageId);
     updateImageAndInfo(imageData);
     history.push(imageData.id);
+    userKey.push(imageData.id);
     localStorage.setItem("history", JSON.stringify(history));
+    localStorage.setItem("userKey", JSON.stringify(userKey));
   });
 }
 
@@ -78,22 +100,47 @@ async function handleDislikeButtonClick(imageData) {
 
   dislikeButtonElement.addEventListener("click", () => {
     likesCountElement.innerHTML = likesCount - 1;
-    localStorage.setItem("likedImageId", likedImageId);
-    history.push(imageData.id);
-    localStorage.setItem("history", JSON.stringify(history));
+
+    // если imgid существует и в юзерки и в img - удаляем запись из юзерки и прибавляем один лайк в отображение инфы о лайках в историю в локале
+
+    if (userKey.includes(likedImageId) === imgFull.includes(likedImageId)) {
+      const index = userKey.indexOf(likedImageId);
+      userKey.splice(index, 1);
+      localStorage.setItem("userKey", JSON.stringify(userKey));
+      updateImageAndInfo(imageData);
+      history.splice(index, 1);
+      localStorage.setItem("history", JSON.stringify(history));
+      localStorage.setItem("userKey", JSON.stringify(userKey));
+    }
+
+    // else  не существует - записываем в юзерки айди картинки и айди юзера
   });
 }
 
 async function handleNextButtonClick() {
-  const likedImageId = localStorage.getItem("likedImageId");
   const history = JSON.parse(localStorage.getItem("history")) || [];
-  const index = history.indexOf(likedImageId);
+
+  const nextButton = JSON.parse(localStorage.getItem("next-button"));
+  nextButton.addEventListener("click", () => {
+    // покажем следующую просмотренную картинкукоторую сохранили в локал сторейдж
+    //иначе - получим новую getRandomImage
+    getRandomImage();
+  });
 }
 
 async function handlePreviousButtonClick() {
-  const likedImageId = localStorage.getItem("likedImageId");
   const history = JSON.parse(localStorage.getItem("history")) || [];
-  const index = history.indexOf(likedImageId);
+  const previousButton = JSON.parse(localStorage.getItem("previous-button"));
+
+  previousButton.addEventListener("click", () => {
+    // покажем предыдущую просмотренную картинкукоторую сохранили в локал сторейдж
+    const previousImageId = history[history.length - 2];
+    const previousImage = JSON.parse(localStorage.getItem(previousImageId));
+    updateImageAndInfo(previousImage);
+    history.pop();
+    localStorage.setItem("history", JSON.stringify(history));
+    // localStorage.setItem("previous-button", JSON.stringify(previousButton));
+  });
 }
 
 window.addEventListener("load", async () => {
@@ -109,7 +156,10 @@ window.addEventListener("load", async () => {
     .addEventListener("click", handleDislikeButtonClick);
 });
 
-//Доразобраться
+// Доразобраться
+// По идее сюда с конкретного юзреа должен записывать ID картинки, если дизлайкнул и, может, еще одн массив, если лайкнул
+// тогда при отображении проверять, был лайк или излайк и выводить кол-во записанных лайков исходя из этого
+
 // function registerUser(name) {
 //   const users = JSON.parse(localStorage.getItem("users")) || [];
 //   users.push(name);
